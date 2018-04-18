@@ -4,9 +4,9 @@ import { Word } from './components/shared/Word';
 
 class App extends Component {
   render() {
-    const word1 = { en: 'One', vn: 'Mot' };
-    const word2 = { en: 'Two', vn: 'Hai' };
-    const word3 = { en: 'Three', vn: 'Ba' };
+    const word1 = { en: 'One', vn: 'Mot', isMemorized: true };
+    const word2 = { en: 'Two', vn: 'Hai', isMemorized: false };
+    const word3 = { en: 'Three', vn: 'Ba', isMemorized: true };
     return (
       <div className="App">
         <Word wordInfo={word1} />
