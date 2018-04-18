@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 // import { StateExam } from './components/screens/StateExam';
-import { MyInput } from './components/screens/MyInput';
+import { ListWord } from './components/screens/ListWord';
 
 class App extends Component {
   render() {
-    return <MyInput />
+    return <ListWord />
   }
 }
 

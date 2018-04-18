@@ -9,9 +9,12 @@ export class ListWord extends Component {
                 { _id: 'a', en: 'One', vn: 'Mot', isMemorized: true },
                 { _id: 'b', en: 'Two', vn: 'Hai', isMemorized: false },
                 { _id: 'c', en: 'Three', vn: 'Ba', isMemorized: true },
-            ]
+            ],
+            txtEn: '',
+            txtVn: ''
         };
         this.genWord = this.genWord.bind(this);
+        this.addWord = this.addWord.bind(this);
     }
 
     removeWord(_id) {
@@ -26,6 +29,20 @@ export class ListWord extends Component {
                 if (w._id !== _id) return w;
                 return { ...w, isMemorized: !w.isMemorized };
             })
+        }));
+    }
+
+    addWord() {
+        const word = {
+            _id: Math.random() + '',
+            en: this.state.txtEn,
+            vn: this.state.txtVn,
+            isMemorized: true
+        };
+        this.setState(prevState => ({
+            words: prevState.words.concat(word),
+            txtEn: '',
+            txtVn: ''
         }));
     }
 
@@ -54,6 +71,28 @@ export class ListWord extends Component {
     render() {
         return (
             <div>
+                <div className="form-group" style={{ width: '200px' }}>
+                    <input
+                        placeholder="English"
+                        className="form-control"
+                        value={this.state.txtEn}
+                        onChange={evt => this.setState({ txtEn: evt.target.value })}
+                    />
+                    <br />
+                    <input
+                        placeholder="Vietnamese"
+                        className="form-control"
+                        value={this.state.txtVn}
+                        onChange={evt => this.setState({ txtVn: evt.target.value })}
+                    />
+                    <br />
+                    <button
+                        className="btn btn-success"
+                        onClick={this.addWord}
+                    >
+                        Add word
+                    </button>
+                </div>
                 { this.state.words.map(this.genWord) }
             </div>
         );
