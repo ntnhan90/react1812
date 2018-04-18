@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { ListWord } from './components/screens/ListWord';
-import { Word } from './components/shared/Word';
+import { StateExam } from './components/screens/StateExam';
 
 class App extends Component {
   render() {
-    return <ListWord />
+    return <StateExam />
   }
 }
 
