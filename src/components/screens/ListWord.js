@@ -20,16 +20,32 @@ export class ListWord extends Component {
         }));
     }
 
+    toggleWord(_id) {
+        this.setState(prevState => ({
+            words: prevState.words.map(w => {
+                if (w._id !== _id) return w;
+                return { ...w, isMemorized: !w.isMemorized };
+            })
+        }));
+    }
+
     genWord(word) {
+        const engClassName = word.isMemorized ? 'text-success' : 'text-danger';
         return (
             <div key={word._id}>
-                <h3>{word.en}</h3>
+                <h3 className={engClassName}>{word.en}</h3>
                 <p>{word.vn}</p>
                 <button
                     className="btn btn-danger"
                     onClick={() => this.removeWord(word._id)}
                 >
                     Remove
+                </button>
+                <button
+                    className="btn btn-success"
+                    onClick={() => this.toggleWord(word._id)}
+                >
+                    Toggle
                 </button>
             </div>
         );
