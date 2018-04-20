@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export class WordFilter extends Component {
+class WordFilterComponent extends Component {
     render() {
         return (
             <select
                 className="form-control" style={{ width: '200px', marginBottom: '10px' }}
+                value={this.props.filterMode}
             >
                 <option value="SHOW_ALL">SHOW ALL</option>
                 <option value="SHOW_FORGOT">SHOW FORGOT</option>
@@ -13,3 +15,8 @@ export class WordFilter extends Component {
         );
     }
 }
+
+const mapStates = state => ({ filterMode: state.filterMode });
+
+export const WordFilter = connect(mapStates)(WordFilterComponent);
+

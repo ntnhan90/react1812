@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export class WordForm extends Component {
+class WordFormComponent extends Component {
     constructor(props) {
         super(props);
         this.state = { txtVn: '', txtEn: '' }
     }
     render() {
-        if (true) return (
+        if (!this.props.shouldShowForm) return (
             <button
                 className="btn btn-success"
             >
@@ -43,3 +44,7 @@ export class WordForm extends Component {
         );
     }
 }
+
+const mapStates = state => ({ shouldShowForm: state.shouldShowForm });
+
+export const WordForm = connect(mapStates)(WordFormComponent);

@@ -14,7 +14,7 @@ function shouldShowFormReducer(state = false, action) {
     return state;
 }
 
-function filterModeReducer(state = 'SHOW_ALL', action) {
+function filterModeReducer(state = 'SHOW_FORGOT', action) {
     return state;
 }
 
