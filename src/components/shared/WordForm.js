@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import * as actionCreators from '../../redux/actionCreators';
 
 class WordFormComponent extends Component {
@@ -11,13 +12,9 @@ class WordFormComponent extends Component {
 
     addWord() {
         const { txtEn, txtVn } = this.state;
-        const word = {
-            _id: Math.random() + '',
-            en: txtEn,
-            vn: txtVn,
-            isMemorized: false
-        };
-        this.props.addWord(word);
+        axios.post('https://word1203.herokuapp.com/word', { en: txtEn, vn: txtVn })
+        .then(response => response.data)
+        .then(res => this.props.addWord(res.word));
         this.setState({ txtEn: '', txtVn: '' });
     }
 

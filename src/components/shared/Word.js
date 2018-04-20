@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import * as actionCreators from '../../redux/actionCreators';
 
 export class WordComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.removeWord = this.removeWord.bind(this);
+    }
+    removeWord() {
+        const { removeWord } = this.props;
+        const { _id } = this.props.wordInfo;
+        axios.delete('https://word1203.herokuapp.com/word/' + _id)
+        .then(() => removeWord(_id))
+    }
+
     getButton() {
         const { wordInfo, toggleWord } = this.props;
         const toggleWordFn = () => toggleWord(wordInfo._id);
@@ -38,7 +50,7 @@ export class WordComponent extends Component {
                 <p>{vn}</p>
                 <button
                     className="btn btn-danger"
-                    onClick={() => removeWord(_id)}
+                    onClick={this.removeWord}
                 >
                     Remove
                 </button>
