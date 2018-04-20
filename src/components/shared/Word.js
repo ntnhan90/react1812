@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as actionCreators from '../../redux/actionCreators';
 
 export class WordComponent extends Component {
     getButton() {
-        const { wordInfo, dispatch } = this.props;
-        const toggleWord = () => dispatch({ type: 'TOGGLE_WORD', _id: wordInfo._id });
+        const { wordInfo, toggleWord } = this.props;
+        const toggleWordFn = () => toggleWord(wordInfo._id);
         if (wordInfo.isMemorized) {
             return (
-                <button className="btn btn-warning" onClick={toggleWord}>
+                <button className="btn btn-warning" onClick={toggleWordFn}>
                     Forgot
                 </button>
             );
         }
         return (
-            <button className="btn btn-success" onClick={toggleWord}>
+            <button className="btn btn-success" onClick={toggleWordFn}>
                 Memorized
             </button>
         );
@@ -29,7 +30,7 @@ export class WordComponent extends Component {
     render() {
         if (!this.shouldShowWord) return null;
         const { en, vn, isMemorized, _id } = this.props.wordInfo;
-        const { dispatch } = this.props;
+        const { removeWord } = this.props;
         const engClassName = isMemorized ? 'text-success' : 'text-danger';
         return (
             <div>
@@ -37,7 +38,7 @@ export class WordComponent extends Component {
                 <p>{vn}</p>
                 <button
                     className="btn btn-danger"
-                    onClick={() => dispatch({ type: 'REMOVE_WORD', _id })}
+                    onClick={() => removeWord(_id)}
                 >
                     Remove
                 </button>
@@ -48,4 +49,4 @@ export class WordComponent extends Component {
 }
 const mapStates = state => ({ filterMode: state.filterMode });
 
-export const Word = connect(mapStates)(WordComponent);
+export const Word = connect(mapStates, actionCreators)(WordComponent);
