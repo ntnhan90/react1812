@@ -4,12 +4,28 @@ import { connect } from 'react-redux';
 class WordFormComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = { txtVn: '', txtEn: '' }
+        this.state = { txtVn: '', txtEn: '' };
+        this.addWord = this.addWord.bind(this);
     }
+
+    addWord() {
+        const { txtEn, txtVn } = this.state;
+        const word = {
+            _id: Math.random() + '',
+            en: txtEn,
+            vn: txtVn,
+            isMemorized: false
+        };
+        this.props.dispatch({ type: 'ADD_WORD', word });
+        this.setState({ txtEn: '', txtVn: '' });
+    }
+
     render() {
-        if (!this.props.shouldShowForm) return (
+        const { shouldShowForm, dispatch } = this.props;
+        if (!shouldShowForm) return (
             <button
                 className="btn btn-success"
+                onClick={() => dispatch({ type: 'TOGGLE_FORM' })}
             >
                 Create new word
             </button>
@@ -32,11 +48,13 @@ class WordFormComponent extends Component {
                 <br />
                 <button
                     className="btn btn-success"
+                    onClick={this.addWord}
                 >
                     Add word
                 </button>
                 <button
                     className="btn btn-warning"
+                    onClick={() => dispatch({ type: 'TOGGLE_FORM' })}
                 >
                     Cancel
                 </button>

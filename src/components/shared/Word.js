@@ -3,10 +3,20 @@ import { connect } from 'react-redux';
 
 export class WordComponent extends Component {
     getButton() {
-        if (this.props.wordInfo.isMemorized) {
-            return <button className="btn btn-warning">Forgot</button>;
+        const { wordInfo, dispatch } = this.props;
+        const toggleWord = () => dispatch({ type: 'TOGGLE_WORD', _id: wordInfo._id });
+        if (wordInfo.isMemorized) {
+            return (
+                <button className="btn btn-warning" onClick={toggleWord}>
+                    Forgot
+                </button>
+            );
         }
-        return <button className="btn btn-success">Memorized</button>;
+        return (
+            <button className="btn btn-success" onClick={toggleWord}>
+                Memorized
+            </button>
+        );
     }
 
     get shouldShowWord() {
@@ -18,7 +28,8 @@ export class WordComponent extends Component {
 
     render() {
         if (!this.shouldShowWord) return null;
-        const { en, vn, isMemorized } = this.props.wordInfo;
+        const { en, vn, isMemorized, _id } = this.props.wordInfo;
+        const { dispatch } = this.props;
         const engClassName = isMemorized ? 'text-success' : 'text-danger';
         return (
             <div>
@@ -26,6 +37,7 @@ export class WordComponent extends Component {
                 <p>{vn}</p>
                 <button
                     className="btn btn-danger"
+                    onClick={() => dispatch({ type: 'REMOVE_WORD', _id })}
                 >
                     Remove
                 </button>
