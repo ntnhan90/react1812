@@ -12,10 +12,13 @@ export class Word extends Component {
         const engClassName = isMemorized ? 'text-success' : 'text-danger';
         return (
             <div>
-                <h3 className={engClassName}>
-                    { isMemorized ? '------' : en }
-                </h3>
+                <h3 className={engClassName}>{en}</h3>
                 <p>{vn}</p>
+                <button
+                    className="btn btn-danger"
+                >
+                    Remove
+                </button>
                 { this.getButton() }
             </div>
         );
