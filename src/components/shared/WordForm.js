@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actionCreators from '../../redux/actionCreators';
+import loadingImg from '../../images/loading.gif';
 
 class WordFormComponent extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class WordFormComponent extends Component {
     }
 
     render() {
-        const { shouldShowForm, toggleForm } = this.props;
+        const { shouldShowForm, toggleForm, loadingAddWord } = this.props;
         if (!shouldShowForm) return (
             <button
                 className="btn btn-success"
@@ -25,6 +26,7 @@ class WordFormComponent extends Component {
                 Create new word
             </button>
         );
+        if (loadingAddWord) return <img src={loadingImg} />
         return (
             <div className="form-group" style={{ width: '200px' }}>
                 <input
@@ -58,6 +60,9 @@ class WordFormComponent extends Component {
     }
 }
 
-const mapStates = state => ({ shouldShowForm: state.shouldShowForm });
+const mapStates = state => ({
+    shouldShowForm: state.shouldShowForm,
+    loadingAddWord: state.loadingAddWord
+});
 
 export const WordForm = connect(mapStates, actionCreators)(WordFormComponent);

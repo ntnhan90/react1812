@@ -26,10 +26,18 @@ function filterModeReducer(state = 'SHOW_ALL', action) {
     return state;
 }
 
+function loadingAddWordReducer(state = false, action) {
+    if (action.type === 'SHOW_LOADING') return true;
+    if (action.type === 'HIDE_LOADING') return false;
+    if (action.type === 'ADD_WORD') return false;
+    return state;
+}
+
 const reducer = combineReducers({
     words: wordsReducer,
     shouldShowForm: shouldShowFormReducer,
-    filterMode: filterModeReducer
+    filterMode: filterModeReducer,
+    loadingAddWord: loadingAddWordReducer
 });
 
 export const store = createStore(reducer, applyMiddleware(thunk));

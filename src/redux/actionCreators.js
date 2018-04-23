@@ -20,9 +20,17 @@ export function getWords() {
 
 export function asyncAddWord(en, vn) {
     return dispatch => {
+        dispatch({ type: 'SHOW_LOADING' });
         axios.post(URL + '/word', { en, vn })
         .then(response => response.data)
-        .then(res => dispatch({ type: 'ADD_WORD', word: res.word }));
+        .then(res => {
+            if (!res.success) throw new Error('Cannot add.');
+            dispatch({ type: 'ADD_WORD', word: res.word });
+        })
+        .catch(error => {
+            dispatch({ type: 'HIDE_LOADING' });
+            alert('Trung tu vung.');
+        });
     }
 }
 
