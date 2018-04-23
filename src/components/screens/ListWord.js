@@ -5,13 +5,9 @@ import { WordForm } from '../shared/WordForm';
 import { WordFilter } from '../shared/WordFilter';
 import * as actionCreators from '../../redux/actionCreators';
 
-import axios from 'axios';
-
 class ListWordComponent extends Component {
     componentDidMount() {
-        axios.get('https://word1203.herokuapp.com/word')
-        .then(response => response.data)
-        .then(res => this.props.setWords(res.words));
+        this.props.getWords();
     }
     render() {
         return (

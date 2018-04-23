@@ -1,4 +1,5 @@
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 
 function wordsReducer(state = [], action) {
     if (action.type === 'SET_WORDS') return action.words;
@@ -31,4 +32,4 @@ const reducer = combineReducers({
     filterMode: filterModeReducer
 });
 
-export const store = createStore(reducer);
+export const store = createStore(reducer, applyMiddleware(thunk));
